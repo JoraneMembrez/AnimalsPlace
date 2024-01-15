@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="groups()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Groupe</ion-title>
+    <ion-buttons slot="end" *ngIf="membre">
+      <ion-button (click)="editGroup()">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1>{{storeService.currentGroup.name}}</h1>
+  <p>{{storeService.currentGroup.description}}</p>
+  <div *ngIf="!membre">
+    <ion-button expand="block" (click)="joinGroup()">
+      Rejoindre le groupe
+    </ion-button>
+  </div>
+  <div *ngIf="membre">
+    <h2>Membres</h2>
+    <ion-item *ngFor="let user of members">
+      <ion-label>
+        <h3>{{user.firstName}} {{user.lastName}}</h3>
+      </ion-label>
+    </ion-item>
+    <h2>Reviews</h2>
+    <div *ngFor="let review of reviews">
+      <app-review
+        [review]="review"
+        (click)="displayReview(review)"
+      ></app-review>
+    </div>
+    <ion-button expand="block" (click)="quitGroup()" color="danger">
+      Quitter le groupe
+    </ion-button>
+  </div>
+</ion-content>

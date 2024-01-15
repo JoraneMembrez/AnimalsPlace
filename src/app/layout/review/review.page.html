@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="home()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Review</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <img
+    alt="{{review.movie.title}} backdrop image"
+    src="https://image.tmdb.org/t/p/original/{{review.movie.backdropURL}}"
+  />
+  <h1>{{review.movie.title}}</h1>
+  <p>{{review.user.firstName}} {{review.user.lastName}}, {{review.date}}</p>
+  <h2>Note :</h2>
+  <div>
+    <span *ngFor="let star of rating">
+      <ion-icon slot="icon-only" name="{{star}}"></ion-icon>
+    </span>
+  </div>
+  <h2>Commentaire :</h2>
+  <p>{{review.comment}}</p>
+  <img *ngIf="review.medias" [src]="review.medias" alt="Photo of the review"/>
+  <div
+    class="leaflet-map"
+    leaflet
+    [leafletOptions]="mapOptions"
+    [leafletLayers]="mapMarkers"
+    (leafletMapReady)="onMapReady($event)"
+  ></div>
+  <ion-button
+    expand="block"
+    (click)="delete()"
+    color="danger"
+    *ngIf="showDeleteButton"
+  >
+    Delete
+  </ion-button>
+</ion-content>

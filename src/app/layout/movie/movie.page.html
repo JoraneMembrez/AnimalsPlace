@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="movies()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Review</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <img
+    alt="{{movie.title}} backdrop image"
+    src="https://image.tmdb.org/t/p/original/{{movie.backdropURL}}"
+  />
+  <h1>{{movie.title}}</h1>
+  <div id="movieDetails">
+    <p>
+      Réalisateur : <br />
+      {{movie.moviePeople[4].name}}
+    </p>
+    <p>
+      Cast : <br />
+      {{movie.moviePeople[0].name}}, {{movie.moviePeople[1].name}},
+      {{movie.moviePeople[2].name}}, {{movie.moviePeople[3].name}},
+    </p>
+    <p>
+      Genres : <br />
+      <span *ngFor="let genre of movie.genres">{{genre.name}}, </span>
+    </p>
+  </div>
+  <div id="reviews">
+    <h2>Reviews</h2>
+    <div *ngFor="let review of reviews">
+      <app-review
+        [review]="review"
+        (click)="displayReview(review)"
+      ></app-review>
+    </div>
+  </div>
+</ion-content>

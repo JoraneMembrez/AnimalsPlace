@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ajouter une review</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #createReviewForm="ngForm" (submit)="createReview(createReviewForm)">
+    <h1>Film</h1>
+    <span class="error" *ngIf="tmdbID == null">
+      Veuillez selectionner un film.
+    </span>
+    <ion-input
+      type="text"
+      placeholder="Nom du film"
+      [(ngModel)]="movie"
+      name="movie"
+      (input)="lookForMovie()"
+      required
+      #movieInput="ngModel"
+      ></ion-input>
+      
+      <div *ngFor="let proposition of movieProposition">
+          <input
+          type="radio"
+          id="{{proposition.id}}"
+          name="tmdbID"
+          value="{{proposition.id}}"
+          [(ngModel)]="tmdbID"
+      />
+      <label for="{{proposition.id}}"> {{proposition.original_title}} </label>
+    </div>
+    <h1>Date</h1>
+    <span class="error" *ngIf="dateInput.invalid && dateInput.touched">
+      Veuillez selectionner une date.
+    </span>
+    <ion-input
+      type="date"
+      placeholder="Date"
+      [(ngModel)]="date"
+      name="date"
+      #dateInput="ngModel"
+      required
+    ></ion-input>
+    <h1>Note</h1>
+    <div id="rating-seletors">
+      <div class="rating">
+        <label for="rating-1">1 </label>
+        <input
+          type="radio"
+          id="rating-1"
+          name="rating"
+          value="1"
+          [(ngModel)]="rating"
+        />
+      </div>
+
+      <div class="rating">
+        <label for="rating-2">2 </label>
+        <input
+          type="radio"
+          id="rating-2"
+          name="rating"
+          value="2"
+          [(ngModel)]="rating"
+        />
+      </div>
+
+      <div class="rating">
+        <label for="rating-3">3 </label>
+        <input
+          type="radio"
+          id="rating-3"
+          name="rating"
+          value="3"
+          [(ngModel)]="rating"
+        />
+      </div>
+
+      <div class="rating">
+        <label for="rating-4">4 </label>
+        <input
+          type="radio"
+          id="rating-4"
+          name="rating"
+          value="4"
+          [(ngModel)]="rating"
+        />
+      </div>
+      <div class="rating">
+        <label for="rating-5">5 </label>
+        <input
+          type="radio"
+          id="rating-5"
+          name="rating"
+          value="5"
+          [(ngModel)]="rating"
+        />
+      </div>
+    </div>
+    <h1>Commentaire</h1>
+    <span class="error" *ngIf="commentInput.invalid && commentInput.touched">
+      Veuillez écrire un commentaire.
+    </span>
+    <ion-input
+      type="text"
+      placeholder="Commentaire"
+      [(ngModel)]="comment"
+      name="comment"
+      #commentInput="ngModel"
+      required
+    >
+    </ion-input>
+
+    <h1>Photo</h1>
+    <ion-button (click)="addPictureToReview()">Ajouter une photo</ion-button>
+    <img *ngIf="picture" [src]="picture.url" />
+    <h1>Localisation</h1>
+
+    <ion-button (click)="printCurrentPosition()" class="localisation-btn">
+      Current position
+    </ion-button>
+    <div
+      class="leaflet-map"
+      leaflet
+      [leafletOptions]="mapOptions"
+      [leafletLayers]="mapMarkers"
+      (leafletMapReady)="onMapReady($event)"
+    ></div>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="disablePublishButton && createReviewForm.invalid"
+    >
+      Publier la review
+    </ion-button>
+  </form>
+</ion-content>
