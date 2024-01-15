@@ -17,9 +17,9 @@ export class LayoutPage {
 
   constructor() {
     this.tabs = [
-      { title: "Accueil", icon: "home", path: "home" },
-      { title: "Films", icon: "videocam-outline", path: "movies" },
-      { title: "Groupes", icon: "people-outline", path: "groups" },
+      { title: "Map", icon: "earth-outline", path: "home" },
+      { title: "Meetings", icon: "paw-outline", path: "movies" },
+      { title: "Profil", icon: "person-outline", path: "groups" },
     ];
   }
 
